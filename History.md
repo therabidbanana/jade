@@ -1,4 +1,157 @@
 
+0.27.6 / 2012-10-05 
+==================
+
+  * Included templates can not override blocks of their parent. Closes #699
+
+0.27.5 / 2012-09-24 
+==================
+
+  * fix attr interpolation escaping. Closes #771
+
+0.27.4 / 2012-09-18 
+==================
+
+  * fix include yields. Closes #770
+
+0.27.3 / 2012-09-18 
+==================
+
+  * fix escaping of interpolation. Closes #769
+  * loosen "mkdirp" version restriction [TooTallNate]
+
+0.27.2 / 2012-08-07 
+==================
+
+  * Revert "fixing string interpolation escaping #731", problems reported
+
+0.27.1 / 2012-08-06 
+==================
+
+  * fix attribute interpolation escaping #731
+  * fix string interpolation escaping #731
+
+0.27.0 / 2012-07-26 
+==================
+
+  * added ability to pass in json file to `--obj`
+  * add preliminary `each` `else` support. Closes #716
+  * fix doctype bug overlooked in #712
+  * fix stripping of utf-8 BOMs
+
+0.26.3 / 2012-06-25 
+==================
+
+  * Update version of commander that supports node v0.8.
+
+0.26.2 / 2012-06-22 
+==================
+
+  * Added --options alias of --obj
+  * Added reserved word conflict prevention in Google's Closure Compiler 
+  * Added tag interpolation. Closes #657
+  * Allow the compiled client to use it's own jade util functions [3rd-Eden]
+  * Fixed `attrs()` escape bug [caseywebdev]
+
+0.26.1 / 2012-05-27 
+==================
+
+  * Changed default doctype to __html5__
+  * Performance: statically compile attrs when possible [chowey]
+  * Fixed some class attribute merging cases
+  * Fixed so `block` doesn't consume `blockquotes` tag [chowey]
+  * Fixed backslashes in text nodes [chowey]
+  * Fixed / in text. Closes #638
+
+0.26.0 / 2012-05-04 
+==================
+
+  * Added package.json __component__ support
+  * Added explicit self-closing tag support. Closes #605
+  * Added `block` statement
+  * Added mixin tag-like behaviour [chowey]
+  * Fixed mixins with extends [chowey]
+
+0.25.0 / 2012-04-18 
+==================
+
+  * Added preliminary mixin block support. Closes #310
+  * Fixed whitespace handling in various situations [chowey]
+  * Fixed indentation in various situations [chowey]
+
+0.24.0 / 2012-04-12 
+==================
+
+  * Fixed unescaped attribute compilation
+  * Fixed pretty-printing of text-only tags (__Warning__: this may affect rendering) [chowey]
+
+0.23.0 / 2012-04-11 
+==================
+
+  * Added data-attr json stringification support. Closes #572
+  * Added unescaped attr support. Closes #198
+  * Fixed #1070, reverted mixin function statements
+  * Fixed jade.1 typo
+
+0.22.1 / 2012-04-04 
+==================
+
+  * Fixed source tags. now self-closing. Closes #308
+  * Fixed: escape backslashes in coffeescript filter
+
+0.22.0 / 2012-03-22 
+==================
+
+  * Added jade manpage (`man jade` after installation for docs)
+  * Added `-D, --no-debug` to jade(1)
+  * Added `-p, --pretty` to jade(1)
+  * Added `-c, --client` option to jade(1)
+  * Fixed `-o { client: true }` with stdin
+  * Fixed: skip blank lines in lexer (unless within pipeless text). Closes #399
+
+0.21.0 / 2012-03-10 
+==================
+
+  * Added new input/output test suite using Mocha's string diffing
+  * Added alias `extend` -> `extends`. Closes #527 [guillermo]
+  * Fixed include escapes. Closes #513
+  * Fixed block-expansion with .foo and #foo short-hands. Closes #498
+
+0.20.3 / 2012-02-16 
+==================
+
+  * Changed: pass `.filename` to filters only
+
+0.20.2 / 2012-02-16 
+==================
+
+  * Fixed `:stylus` import capabilities, pass .filename
+
+0.20.1 / 2012-02-02 
+==================
+
+  * Fixed Block#includeBlock() with textOnly blocks
+
+0.20.0 / 2011-12-28 
+==================
+
+  * Added a browser example
+  * Added `yield` for block `include`s
+  * Changed: replaced internal `__` var with `__jade` [chrisleishman]
+  * Fixed two globals. Closes #433
+
+0.19.0 / 2011-12-02 
+==================
+
+  * Added block `append` / `prepend` support. Closes #355
+  * Added link in readme to jade-mode for Emacs
+  * Added link to python implementation
+
+0.18.0 / 2011-11-21 
+==================
+
+  * Changed: only ['script', 'style'] are text-only. Closes #398'
+
 0.17.0 / 2011-11-10 
 ==================
 

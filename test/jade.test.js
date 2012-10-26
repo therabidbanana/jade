@@ -26,6 +26,8 @@ assert.render = function(jade, html, options){
   for (var key in options) opts[key] = options[key];
   var res = render(jade, opts).trim();
   if (res !== html) {
+    console.error();
+    console.error(path);
     console.error('\n\033[31mexpected:\033[m ');
     console.error(html);
     console.error('\n\033[31mgot:\033[m ');
@@ -115,6 +117,7 @@ module.exports = {
   'test block-expansion': function(){
       assert.equal("<li><a>foo</a></li><li><a>bar</a></li><li><a>baz</a></li>", render("li: a foo\nli: a bar\nli: a baz"));
       assert.equal("<li class=\"first\"><a>foo</a></li><li><a>bar</a></li><li><a>baz</a></li>", render("li.first: a foo\nli: a bar\nli: a baz"));
+      assert.equal('<div class="foo"><div class="bar">baz</div></div>', render(".foo: .bar baz"));
   },
 
   'test case statement': function(){
@@ -332,7 +335,7 @@ module.exports = {
   },
   
   'test pipe-less text': function(){
-    assert.equal('<pre><code>foo\n\nbar\n</code></pre>', render('pre\n  code\n    foo\n\n    bar'));
+    assert.equal('<pre><code><foo></foo><bar></bar></code></pre>', render('pre\n  code\n    foo\n\n    bar'));
     assert.equal('<p>foo\n\nbar\n</p>', render('p.\n  foo\n\n  bar'));
     assert.equal('<p>foo\n\n\n\nbar\n</p>', render('p.\n  foo\n\n\n\n  bar'));
     assert.equal('<p>foo\n  bar\nfoo\n</p>', render('p.\n  foo\n    bar\n  foo'));
@@ -928,6 +931,28 @@ module.exports = {
     assert.render('pet-page.jade', 'pet.html', { superCool: false, name: 'tobi', age: 1, species: 'ferret' });
     assert.render('pet-page.jade', 'super-pet.html', { superCool: true, name: 'tobi', age: 1, species: 'ferret' });
   },
+  
+  'test block append': function(){
+    assert.render('append/page.jade', 'append/page.html');
+    assert.render('append-without-block/page.jade', 'append/page.html');
+  },
+  
+  'test block prepend': function(){
+    assert.render('prepend/page.jade', 'prepend/page.html');
+    assert.render('prepend-without-block/page.jade', 'prepend/page.html');
+  },
+
+  'test include literal': function(){
+    assert.render('include-html.jade', 'include-html.html')
+    assert.render('include-only-text.jade', 'include-only-text.html')
+    assert.render('include-with-text.jade', 'include-with-text.html')
+  },
+  
+  'test yield': function(){
+    assert.render('yield.jade', 'yield.html')
+    assert.render('yield-title.jade', 'yield-title.html')
+    assert.render('yield-before-conditional.jade', 'yield-before-conditional.html')
+  },
 
   'test include': function(){
     var str = [
@@ -1004,7 +1029,7 @@ module.exports = {
       tag.setAttribute(name, val)
       assert.equal(tag.getAttribute(name), val)
       tag.removeAttribute(name)
-      assert.isUndefined(tag.getAttribute(name))
+      assert.ok(!tag.getAttribute(name))
   },
 
   'test assignment': function(){

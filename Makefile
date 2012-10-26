@@ -1,13 +1,20 @@
 
-TESTS = test/*.js
 SRC = $(shell find lib -name "*.js" -type f)
 UGLIFY = $(shell find node_modules -name "uglifyjs" -type f)
-UGLIFY_FLAGS = --no-mangle 
+UGLIFY_FLAGS = --no-mangle
+REPORTER = dot
 
 all: jade.min.js runtime.min.js
 
 test:
-	@./node_modules/.bin/expresso $(TESTS)
+	@./node_modules/.bin/mocha \
+		--reporter $(REPORTER)
+
+test-cov: lib-cov
+	JADE_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
+
+lib-cov:
+	jscoverage lib lib-cov
 
 benchmark:
 	@node support/benchmark
@@ -20,16 +27,14 @@ gem: jade.js
 
 jade.min.js: jade.js
 	@$(UGLIFY) $(UGLIFY_FLAGS) $< > $@ \
-		&& du jade.min.js \
-		&& du jade.js
+		&& du -bh jade.js jade.min.js
 
 runtime.js: lib/runtime.js
 	@cat support/head.js $< support/foot.js > $@
 
 runtime.min.js: runtime.js
 	@$(UGLIFY) $(UGLIFY_FLAGS) $< > $@ \
-	  && du runtime.min.js \
-	  && du runtime.js
+	  && du -bh runtime.js runtime.min.js
 
 clean:
 	rm -f jade.js
@@ -37,4 +42,4 @@ clean:
 	rm -f runtime.js
 	rm -f runtime.min.js
 
-.PHONY: test benchmark clean
+.PHONY: test-cov test benchmark clean
