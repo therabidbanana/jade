@@ -65,7 +65,6 @@
   - transparent iteration over objects, arrays, and even non-enumerables via `each`
   - block comments
   - no tag prefix
-  - AST filters
   - filters
     - :stylus must have [stylus](http://github.com/LearnBoost/stylus) installed
     - :less must have [less.js](http://github.com/cloudhead/less.js) installed
@@ -865,7 +864,7 @@ for user in users
     p= user.name
 ```
 
-  Jade also provides have `unless` which is equivalent to `if (!(expr))`:
+  Jade also provides `unless` which is equivalent to `if (!(expr))`:
 
 ```jade
 for user in users
@@ -1206,6 +1205,8 @@ function anonymous(locals) {
   Below is an example Makefile used to compile _pages/*.jade_
   into _pages/*.html_ files by simply executing `make`.
 
+_Note:_ If you try to run this snippet and `make` throws a `missing separator` error, you should make sure all indented lines use a tab for indentation instead of spaces. (For whatever reason, GitHub renders this code snippet with 4-space indentation although the actual README file uses tabs in this snippet.)
+
 ```make
 JADE = $(shell find pages/*.jade)
 HTML = $(JADE:.jade=.html)
@@ -1213,10 +1214,10 @@ HTML = $(JADE:.jade=.html)
 all: $(HTML)
 
 %.html: %.jade
-    jade < $< --path $< > $@
+	jade < $< --path $< > $@
 
 clean:
-    rm -f $(HTML)
+	rm -f $(HTML)
 
 .PHONY: clean
 ```
